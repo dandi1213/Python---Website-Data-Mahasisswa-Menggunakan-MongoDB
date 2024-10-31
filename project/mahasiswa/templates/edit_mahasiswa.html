@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Mahasiswa</title>
+    <link rel="stylesheet" href="{% static 'mahasiswa/edit_mahasiswa.css' %}">
+</head>
+<body>
+    
+
+<h1>Edit Mahasiswa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="Nama">Nama:</label>
+    <input type="text" id="Nama" name="Nama" value="{{ mahasiswa.Nama }}" required>
+
+    <label for="Nim">NIM:</label>
+    <input type="text" id="Nim" name="Nim" value="{{ mahasiswa.Nim }}" required>
+
+    <label for="Ttl">TTL:</label>
+    <input type="text" id="Ttl" name="Ttl" value="{{ mahasiswa.Ttl }}" required>
+
+    <label for="Jenis_Kelamin">Jenis Kelamin:</label>
+    <select id="Jenis_Kelamin" name="Jenis_Kelamin" required>
+        <option value="Laki-Laki" {% if mahasiswa.Jenis_Kelamin == 'Laki-Laki' %}selected{% endif %}>Laki-Laki</option>
+        <option value="Perempuan" {% if mahasiswa.Jenis_Kelamin == 'Perempuan' %}selected{% endif %}>Perempuan</option>
+    </select>
+
+    <label for="No_Telepon">No Telepon:</label>
+    <input type="text" id="No_Telepon" name="No_Telepon" value="{{ mahasiswa.No_Telepon }}" required>
+
+    <button type="submit" class="btn-save">Simpan</button>
+    <a href="{% url 'mahasiswa_list' %}" class="btn-cancel">Batal</a>
+</form>
+
+</body>
+</html>

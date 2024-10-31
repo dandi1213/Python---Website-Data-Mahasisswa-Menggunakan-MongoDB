@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Mahasiswa</title>
+    <link rel="stylesheet" href="{% static 'mahasiswa/tambah_mahasiswa.css' %}">
+</head>
+<body>
+
+<h1>Tambah Mahasiswa</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="Nama">Nama:</label>
+    <input type="text" id="Nama" name="Nama" required>
+
+    <label for="Nim">NIM:</label>
+    <input type="text" id="Nim" name="Nim" required>
+
+    <label for="Ttl">TTL:</label>
+    <input type="text" id="Ttl" name="Ttl" required>
+
+    <label for="Jenis_Kelamin">Jenis Kelamin:</label>
+    <select id="Jenis_Kelamin" name="Jenis_Kelamin" required>
+        <option value="Laki-Laki">Laki-Laki</option>
+        <option value="Perempuan">Perempuan</option>
+    </select>
+
+    <label for="No_Telepon">No Telepon:</label>
+    <input type="text" id="No_Telepon" name="No_Telepon" required>
+
+    <button type="submit" class="btn-submit">Simpan</button>
+    <!-- Batal button -->
+    <a href="{% url 'mahasiswa_list' %}" class="btn-cancel">Batal</a>
+</form>
+
+</body>
+</html>

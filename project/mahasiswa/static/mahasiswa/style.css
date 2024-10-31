@@ -1,0 +1,256 @@
+/* Reset default style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style untuk body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Style untuk container utama */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Style untuk sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+    transition: 0.3s;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ecf0f1;
+    display: block;
+    transition: 0.3s;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.sidebar a i {
+    margin-right: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #34495e;
+    color: white;
+    border-left: 3px solid #4CAF50;
+}
+
+/* Style untuk header */
+.header {
+    background-color: #4CAF50;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    z-index: 1000;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    padding-top: 70px;
+    width: calc(100% - 250px);
+    background-color: #ecf0f1;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Style untuk judul di dalam konten */
+h1 {
+    color: #2c3e50;
+    padding: 20px 0;
+    margin-bottom: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.btn-tambah {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #4CAF50; /* Warna tombol */
+    color: white; /* Warna teks */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    margin-left: 20px; /* Jarak dari judul */
+    transition: background-color 0.3s ease;
+}
+
+.btn-tambah:hover {
+    background-color: #45a049; /* Warna saat hover */
+}
+
+.search-filter {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    flex: 1; /* Menggunakan sisa ruang */
+}
+
+#filterSelect {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
+/* Style untuk tabel */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Style untuk header tabel */
+thead th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center; /* Memusatkan teks header tabel */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Style untuk tombol edit dan hapus */
+.btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #45a049;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Ikon di dalam tombol */
+.btn-edit i, .btn-delete i {
+    margin-right: 5px;
+}
+
+/* Style untuk kolom aksi */
+tbody td:nth-child(6) {
+    text-align: center; /* Memusatkan teks di kolom aksi */
+    white-space: nowrap;
+}
+
+/* Style untuk sel tabel */
+tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center; /* Memusatkan teks di sel tabel */
+    font-size: 14px;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect for rows */
+tbody tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Style untuk sel nomor telepon agar teks berada di tengah */
+tbody td:nth-child(5) {
+    text-align: center;
+}
+
+/* Tombol di sidebar */
+.sidebar .toggle-btn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+        overflow: hidden;
+    }
+
+    .sidebar a {
+        font-size: 0;
+        text-align: center;
+    }
+
+    .sidebar a i {
+        font-size: 24px;
+        margin-right: 0;
+    }
+
+    .main-content {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    .header {
+        left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    .sidebar .toggle-btn {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: -15px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+}
+
+

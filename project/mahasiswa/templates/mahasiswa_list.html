@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mahasiswa List</title>
+        <link rel="stylesheet" href="{% static 'mahasiswa/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="#"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="#"><i class="fas fa-user"></i> Data Mahasiswa</a>
+            <a href="#"><i class="fas fa-file-alt"></i> Laporan</a>
+            <a href="#"><i class="fas fa-cog"></i> Pengaturan</a>
+        </div>
+
+        <!-- Main content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Admin Dashboard</h2>
+            </div>
+
+            <!-- Judul Halaman -->
+            <h1>
+                Daftar Mahasiswa
+                <a href="{% url 'tambah_mahasiswa' %}" class="btn-tambah">Tambah</a>
+                <a href="{% url 'grafik' %}" class="btn-tambah">Grafik</a>
+                <!-- Add buttons for CSV and XLSX export -->
+                <a href="{% url 'export_csv' %}" class="btn-tambah">Download CSV</a>
+                <a href="{% url 'export_xlsx' %}" class="btn-tambah">Download XLSX</a>
+            </h1>            
+            
+            <!-- Tampilkan Total Mahasiswa -->
+            <div class="total-mahasiswa">
+                <strong>Total Mahasiswa : <span id="totalMahasiswa">{{ total_mahasiswa }}</span></strong>
+            </div>            
+                
+            <!-- Pencarian dan Filter -->
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="Cari mahasiswa...">
+                <select id="filterSelect">
+                    <option value="">Semua Jenis Kelamin</option>
+                    <option value="Laki-Laki">Laki-Laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+
+            <!-- Tabel Mahasiswa -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>NIM</th>
+                        <th>TTL</th>
+                        <th>Jenis Kelamin</th>
+                        <th>No Telepon</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in mahasiswa %}
+                    <tr>
+                        <td>{{ m.Nama }}</td>
+                        <td>{{ m.Nim }}</td>
+                        <td>{{ m.Ttl }}</td>
+                        <td>{{ m.Jenis_Kelamin }}</td>
+                        <td>{{ m.No_Telepon }}</td>
+                        <td>
+                            <a href="{% url 'edit_mahasiswa' m.id %}" class="btn-edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'hapus_mahasiswa' m.id %}" class="btn-delete" onclick="return confirm('Yakin ingin menghapus data ini?');">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>                                       
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const filterSelect = document.getElementById('filterSelect');
+        const tableRows = document.querySelectorAll('tbody tr');
+        const totalMahasiswaElement = document.getElementById('totalMahasiswa');
+
+        // Fungsi untuk menghitung jumlah mahasiswa yang terlihat
+        function updateTotalMahasiswa() {
+            let visibleRows = 0;
+            tableRows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    visibleRows++;
+                }
+            });
+            totalMahasiswaElement.textContent = visibleRows;
+        }
+
+        // Fungsi untuk melakukan pencarian dan filter
+        function filterTable() {
+            const searchValue = searchInput.value.toLowerCase();
+            const filterValue = filterSelect.value;
+
+            tableRows.forEach(row => {
+                const name = row.cells[0].textContent.toLowerCase();
+                const nim = row.cells[1].textContent.toLowerCase();
+                const ttl = row.cells[2].textContent.toLowerCase();
+                const gender = row.cells[3].textContent;
+                const phone = row.cells[4].textContent.toLowerCase();
+
+                const nameMatches = name.includes(searchValue);
+                const nimMatches = nim.includes(searchValue);
+                const ttlMatches = ttl.includes(searchValue);
+                const phoneMatches = phone.includes(searchValue);
+                const genderMatches = filterValue === "" || gender === filterValue;
+
+                if ((nameMatches || nimMatches || ttlMatches || phoneMatches) && genderMatches) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Perbarui total mahasiswa setelah filter/pencarian diterapkan
+            updateTotalMahasiswa();
+        }
+
+        // Panggil filterTable saat input pencarian atau filter berubah
+        searchInput.addEventListener('input', filterTable);
+        filterSelect.addEventListener('change', filterTable);
+
+        // Hitung total mahasiswa saat halaman pertama kali dimuat
+        updateTotalMahasiswa();
+    });
+</script>
+
+</html>

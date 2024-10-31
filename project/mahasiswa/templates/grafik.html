@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafik Jenis Kelamin Mahasiswa</title>
+    <link rel="stylesheet" href="{% static 'mahasiswa/grafik.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Grafik Jenis Kelamin Mahasiswa</h1>
+        <canvas id="genderChart" data-laki="{{ laki_laki_count }}" data-perempuan="{{ perempuan_count }}"></canvas>
+        
+        <!-- Tombol Kembali -->
+        <a href="{% url 'mahasiswa_list' %}" class="btn-kembali">Kembali ke Daftar Mahasiswa</a>
+    </div>
+
+    <script>
+        // Mengambil data dari data attribute di canvas
+        const canvas = document.getElementById('genderChart');
+        const lakiLakiCount = canvas.getAttribute('data-laki');
+        const perempuanCount = canvas.getAttribute('data-perempuan');
+    
+        // Render chart dengan data yang diambil
+        const ctx = canvas.getContext('2d');
+        const genderChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Laki-Laki', 'Perempuan'],
+                datasets: [{
+                    label: 'Jenis Kelamin',
+                    data: [lakiLakiCount, perempuanCount],
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            }
+        });
+    </script>
+</body>
+</html>
